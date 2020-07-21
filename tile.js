@@ -86,7 +86,7 @@
             });
         }
 	    
-	  setIceCreamModel:function(){
+	  setIceCreamModel(){
 
 			var aData = {
 					Items : [  
