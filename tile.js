@@ -43,7 +43,7 @@
             _shadowRoot.appendChild(tmpl.content.cloneNode(true));
 
             _id = createGuid();
-	jQuery.sap.registerModulePath("lidl.lib.ui5", "https://esc.sys.schwar/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/");
+	jQuery.sap.registerModulePath("lidl.lib.ui5", "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/");
 	sap.ui.getCore().loadLibrary("lidl.lib.ui5");
 
             _shadowRoot.querySelector("#oView").id = _id + "_oView";
