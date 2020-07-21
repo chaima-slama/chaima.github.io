@@ -97,14 +97,14 @@
         <script>
             sap.ui.getCore().attachInit(function () {
                 "use strict";
- 
+ 		
                 //### Custom Control ###
                 // remove the first parameter in "real" apps
                 sap.ui.define("nabisoft/ui/Headline",[
                     "sap/ui/core/Control"
                 ], function(Control) {
                     "use strict";
- 
+ 		
                     return Control.extend("nabisoft.ui.Headline", {
                         metadata : {
                             properties : {
@@ -144,7 +144,7 @@
                                     useBatch : false
                                 })
                             );
- 
+ 		debugger;
                             var sPath = "/Customers('ALFKI')/Orders";
                             var oTable = this.byId("myTable");
                             var oTemplate =  sap.ui.xmlfragment({
