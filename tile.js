@@ -13,8 +13,11 @@
         <script id="oView" name="oView" type="sapui5/xmlview">
             <mvc:View
 			    controllerName="myView.Template"
+				xmlns="sap.m"
 				xmlns:l="sap.ui.layout"
 				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+				    xmlns:viz.data="sap.viz.ui5.data"
 				xmlns="sap.m">
 				<l:VerticalLayout
 					class="sapUiContentPadding"
@@ -24,8 +27,38 @@
 							id="passwordInput"
 							type="Password"
 							placeholder="Enter password ..." liveChange="onButtonPress"/>
+						<viz:VizFrame id="idpiechart" width="auto"
+    uiConfig="{applicationSet:'fiori'}" vizType="pie"
+    vizProperties="{
+		   plotArea:{
+                            dataLabel:{visible: true}
+			    },
+                            title : {text:'Flavor-Sales'}
+		    }"
+		    selectData="myOnClickHandler" 
+                    noDataText="Go make a Sale!"
+		    renderComplete="handleRenderComplete"
+   >
+     <viz:dataset>
+	<viz.data:FlattenedDataset id="flattenData" data="{IceCreamModel>/Items}">
+           <viz.data:dimensions>
+	     <viz.data:DimensionDefinition name="Flavor" value="{IceCreamModel>Flavor}" />
+           </viz.data:dimensions>
+	   <viz.data:measures>
+              <viz.data:MeasureDefinition name="Sales" value="{IceCreamModel>Sales}" />
+	   </viz.data:measures>
+	 </viz.data:FlattenedDataset>
+      </viz:dataset>
+	       
+       <viz:feeds>
+         <viz.feeds:FeedItem uid="size" type="Measure" values="Sales" />
+	 <viz.feeds:FeedItem uid="color" type="Dimension" values="Flavor" />
+       </viz:feeds>
+   </viz:VizFrame>
+</chart:content>
 					</l:content>
 				</l:VerticalLayout>
+				
 			</mvc:View>
         </script>        
     `;
@@ -46,11 +79,39 @@
 
             this._export_settings = {};
             this._export_settings.password = "";
+		this._setIceCreamModel();
 
             this.addEventListener("click", event => {
                 console.log('click');
             });
         }
+	    
+	  _setIceCreamModel:function(){
+
+			var aData = {
+					Items : [  
+						{
+							Flavor:"Blue Moon",
+							Sales : 700
+						},
+						{
+							Flavor:"Matcha Green Tea",
+							Sales : 1100
+						},
+						{
+							Flavor:"ButterScotch",
+							Sales : 1400
+						},
+						{
+							Flavor:"Black Current",
+							Sales : 560
+						}
+						]
+			}
+			var oIceCreamModel = new sap.ui.model.json.JSONModel();
+			oIceCreamModel.setData(aData);
+			this.setModel(oIceCreamModel, "IceCreamModel");
+}
 
         connectedCallback() {
             try {
@@ -225,7 +286,7 @@
 
 
             if (that_._designMode) {
-                oView.byId("passwordInput").setEnabled(false);
+                oView.byId("passwordInput").setEnabled(true);
             }
         });
     }
