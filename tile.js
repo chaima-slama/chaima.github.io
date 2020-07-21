@@ -5,24 +5,6 @@
 
     let tmpl = document.createElement("template");
     tmpl.innerHTML = `
-	<script type="text/javascript">
-		window["sap-ui-config"] = {
-			theme: "lidl",
-			themeroots: {
-				"lidl": "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/sov.theme.lidl/UI5/"
-			}
-		};
-	</script>
-        <script src="https://openui5.hana.ondemand.com/1.52.36/resources/sap-ui-core.js"
-            id="sap-ui-bootstrap"
-            data-sap-ui-theme="lidl"
-            data-sap-ui-libs="sap.m"
-            data-sap-ui-bindingSyntax="complex"
-            data-sap-ui-compatVersion="edge"
-            data-sap-ui-preload="async"
-	    data-sap-ui-resourceroots='{
-				"lidl.lib.ui5": "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/"
-			}></script>
         <div id="ui5_content" name="ui5_content">
          <slot name="content"></slot>
         </div>
@@ -61,12 +43,16 @@
             _shadowRoot.appendChild(tmpl.content.cloneNode(true));
 
             _id = createGuid();
+	jQuery.sap.registerModulePath("lidl.lib.ui5", "https://esc.sys.schwar/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/");
+	sap.ui.getCore().loadLibrary("lidl.lib.ui5");
 
             _shadowRoot.querySelector("#oView").id = _id + "_oView";
 
             this._export_settings = {};
             this._export_settings.password = "";
 	    this.setIceCreamModel();
+		
+	
 
             this.addEventListener("click", event => {
                 console.log('click');
