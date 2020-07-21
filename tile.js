@@ -13,6 +13,8 @@
 			    controllerName="myView.Template"
 				xmlns:l="sap.ui.layout"
 				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:lidl="lidl.lib.ui5"
+        			xmlns:chart="lidl.lib.ui5.chart"
 				xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
 				    xmlns:viz.data="sap.viz.ui5.data"
 				xmlns="sap.m">
@@ -24,7 +26,50 @@
 							id="passwordInput"
 							type="Password"
 							placeholder="Enter password ..." liveChange="onButtonPress"/>
-						
+					<chart:ChartTile class="sapUiMediumMargin" width="300px">
+            <chart:chart>
+                <chart:DonutChart
+                        donutTitle="{= 313 + 224}"
+                        showLabels="true"
+                        donutSecondaryTitle="gescannt"
+                        width="100%"
+                        height="100%"
+                        widthRatio="273"
+                        heightRatio="273">
+                    <chart:series>
+                        <chart:ChartSeries color="#43b970" name="OK gescannt">
+                            <chart:ChartDataPoint label="" value="313"/>
+                        </chart:ChartSeries>
+                        <chart:ChartSeries color="#e42912" name="Defekt gescannt">
+                            <chart:ChartDataPoint label="" value="224"/>
+                        </chart:ChartSeries>
+                    </chart:series>
+ 
+                    <chart:colors>
+                        <chart:SeriesColor color="#43b970"/>
+                        <chart:SeriesColor color="#e42912"/>
+                        <chart:SeriesColor color="#ff9800"/>
+                    </chart:colors>
+ 
+                    <chart:xAxis>
+                        <chart:ChartAxis type="Category" timeParseFormat="%d-%m-%Y">
+                            <chart:categories>
+                                <chart:ChartAxisCategory label="01-03-2017"/>
+                                <chart:ChartAxisCategory label="01-04-2017"/>
+                                <chart:ChartAxisCategory label="01-05-2017"/>
+                                <chart:ChartAxisCategory label="01-07-2017"/>
+                            </chart:categories>
+                        </chart:ChartAxis>
+                    </chart:xAxis>
+ 
+ 
+                </chart:DonutChart>
+            </chart:chart>
+            <lidl:InformationChartLegend title="Legende">
+                <lidl:InformationLabelObject color="#43b970" label="OK gescannt" value="313"/>
+                <lidl:InformationLabelObject color="#e42912" label="Defekt gescannt" value="224"/>
+            </lidl:InformationChartLegend>
+        </chart:ChartTile>	
 					</l:content>
 				</l:VerticalLayout>
 				
@@ -41,50 +86,20 @@
                 mode: "open"
             });
             _shadowRoot.appendChild(tmpl.content.cloneNode(true));
+	jQuery.sap.registerModulePath("lidl.lib.ui5", "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/");
+	sap.ui.getCore().loadLibrary("lidl.lib.ui5");
 
             _id = createGuid();
-	jQuery.sap.registerModulePath("lidl.lib.ui5", "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/");
-	//sap.ui.getCore().loadLibrary("lidl.lib.ui5");
+		
 
             _shadowRoot.querySelector("#oView").id = _id + "_oView";
 
             this._export_settings = {};
             this._export_settings.password = "";
-	    this.setIceCreamModel();
-		
-	
-
             this.addEventListener("click", event => {
                 console.log('click');
             });
         }
-	    
-	  setIceCreamModel(){
-
-			var aData = {
-					Items : [  
-						{
-							Flavor:"Blue Moon",
-							Sales : 700
-						},
-						{
-							Flavor:"Matcha Green Tea",
-							Sales : 1100
-						},
-						{
-							Flavor:"ButterScotch",
-							Sales : 1400
-						},
-						{
-							Flavor:"Black Current",
-							Sales : 560
-						}
-						]
-			}
-			var oIceCreamModel = new sap.ui.model.json.JSONModel();
-			oIceCreamModel.setData(aData);
-			this.setModel(oIceCreamModel, "IceCreamModel");
-}
 
         connectedCallback() {
             try {
