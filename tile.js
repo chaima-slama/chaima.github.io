@@ -5,8 +5,24 @@
 
     let tmpl = document.createElement("template");
     tmpl.innerHTML = `
-        <style>
-        </style>
+	<script type="text/javascript">
+		window["sap-ui-config"] = {
+			theme: "lidl",
+			themeroots: {
+				"lidl": "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/sov.theme.lidl/UI5/"
+			}
+		};
+	</script>
+        <script src="https://openui5.hana.ondemand.com/1.52.36/resources/sap-ui-core.js"
+            id="sap-ui-bootstrap"
+            data-sap-ui-theme="lidl"
+            data-sap-ui-libs="sap.m"
+            data-sap-ui-bindingSyntax="complex"
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-preload="async"
+	    data-sap-ui-resourceroots='{
+				"lidl.lib.ui5": "https://esc.sys.schwarz/sap/bc/ui5_ui5/sap/ZCAX_LIBUI5V144/lidl.lib.ui5/"
+			}></script>
         <div id="ui5_content" name="ui5_content">
          <slot name="content"></slot>
         </div>
@@ -26,35 +42,7 @@
 							id="passwordInput"
 							type="Password"
 							placeholder="Enter password ..." liveChange="onButtonPress"/>
-						<viz:VizFrame id="idpiechart" width="auto"
-    uiConfig="{applicationSet:'fiori'}" vizType="pie"
-    vizProperties="{
-		   plotArea:{
-                            dataLabel:{visible: true}
-			    },
-                            title : {text:'Flavor-Sales'}
-		    }"
-		    selectData="myOnClickHandler" 
-                    noDataText="Go make a Sale!"
-		    renderComplete="handleRenderComplete"
-   >
-     <viz:dataset>
-	<viz.data:FlattenedDataset id="flattenData" data="{IceCreamModel>/Items}">
-           <viz.data:dimensions>
-	     <viz.data:DimensionDefinition name="Flavor" value="{IceCreamModel>Flavor}" />
-           </viz.data:dimensions>
-	   <viz.data:measures>
-              <viz.data:MeasureDefinition name="Sales" value="{IceCreamModel>Sales}" />
-	   </viz.data:measures>
-	 </viz.data:FlattenedDataset>
-      </viz:dataset>
-	       
-       <viz:feeds>
-         <viz.feeds:FeedItem uid="size" type="Measure" values="Sales" />
-	 <viz.feeds:FeedItem uid="color" type="Dimension" values="Flavor" />
-       </viz:feeds>
-   </viz:VizFrame>
-</chart:content>
+						
 					</l:content>
 				</l:VerticalLayout>
 				
