@@ -79,14 +79,14 @@
 
             this._export_settings = {};
             this._export_settings.password = "";
-		this._setIceCreamModel();
+	    this.setIceCreamModel();
 
             this.addEventListener("click", event => {
                 console.log('click');
             });
         }
 	    
-	  _setIceCreamModel:function(){
+	  setIceCreamModel:function(){
 
 			var aData = {
 					Items : [  
